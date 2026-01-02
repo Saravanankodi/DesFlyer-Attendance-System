@@ -12,11 +12,12 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AllAttendance from "./pages/admin/AllAttendance";
 import AddEmployee from "./pages/admin/AddEmployee";
 import EmployeeDetails from "./pages/admin/EmployeeDetails";
+import type { ReactElement } from "react";
 
 // Layouts
 import Layout from "./components/layout/Layout";
 
-const ProtectedRoute = ({ children, allowedRoles }: { children: JSX.Element; allowedRoles: string[] }) => {
+const ProtectedRoute = ({ children, allowedRoles }: { children: ReactElement; allowedRoles: string[] }) => {
   const { currentUser, loading } = useAuth();
 
   if (loading) {
