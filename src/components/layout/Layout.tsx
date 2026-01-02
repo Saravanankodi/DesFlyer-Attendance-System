@@ -1,11 +1,11 @@
 // src/components/layout/Layout.tsx
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import Banner from "./Banner";
+// import Banner from "./Banner";
 import { useAuth } from "../../context/AuthContext";
 
 const Layout = () => {
-  const { currentUser, logout } = useAuth();
+  const {logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -21,10 +21,10 @@ const Layout = () => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col">
         {/* Banner - only needs employeeName and role */}
-        <Banner
+        {/* <Banner
           employeeName={currentUser?.name || "Employee"}
           role={currentUser?.role || "employee"}
-        />
+        /> */}
 
         {/* Page Content */}
         <main className="flex-1 p-6 overflow-y-auto bg-gray-50">

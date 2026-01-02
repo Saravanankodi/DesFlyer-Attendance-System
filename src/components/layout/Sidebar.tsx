@@ -5,7 +5,9 @@ import logo from "../../assets/desflyer.png";
 import logoutIcon from "../../assets/logout.png";
 import dashboardIcon from "../../assets/dashbord.png";
 import calendarIcon from "../../assets/celander.png";
-// Add more icons if needed for admin items
+import expand from '../../assets/expand.png'
+import avatar from '../../assets/Avatar.png'
+
 
 export function Sidebar({ onLogout }: { onLogout: () => void }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -13,6 +15,7 @@ export function Sidebar({ onLogout }: { onLogout: () => void }) {
   const { currentUser } = useAuth();
 
   const isAdmin = currentUser?.role === "admin";
+  const name = currentUser?.name;
 
   const employeeItems = [
     { label: "Dashboard", path: "/", icon: dashboardIcon },
@@ -26,7 +29,7 @@ export function Sidebar({ onLogout }: { onLogout: () => void }) {
     // Add more admin items here when you implement them
   ];
 
-  const navItems = isAdmin ? [...employeeItems, ...adminItems] : employeeItems;
+  const navItems = isAdmin ? adminItems : employeeItems;
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -46,7 +49,7 @@ export function Sidebar({ onLogout }: { onLogout: () => void }) {
           className="p-2 rounded-lg hover:bg-gray-100 text-gray-600"
           aria-label="Toggle sidebar"
         >
-          {collapsed ? "▶" : "◀"}
+          <img src={expand} alt="expand icon" className={`w-6 h-6 ${collapsed?"rotate-180":""}`} />
         </button>
       </div>
 
@@ -69,20 +72,29 @@ export function Sidebar({ onLogout }: { onLogout: () => void }) {
             {!collapsed && <span>{item.label}</span>}
           </Link>
         ))}
-      </nav>
-
-      {/* Logout */}
-      <div className="p-3 border-t border-gray-200">
         <button
           onClick={onLogout}
           className="
             group flex items-center gap-4 rounded-lg px-3 py-3 text-sm font-medium w-full
-            text-red-600 hover:bg-red-50 transition-all
+            hover:text-white hover:bg-[#0496ff] transition-all
           "
         >
           <img src={logoutIcon} alt="Logout" className="w-6 h-6" />
           {!collapsed && <span>Logout</span>}
         </button>
+      </nav>
+
+      {/* Logout */}
+      <div className="p-3 border-t border-gray-200 flex items-center justify-evenly">
+        <img src={avatar} alt="pofile" className="w-10 h-10" />
+        {
+          !collapsed && <aside className="text">
+                          <p className="text text-sm">Welcome back 👋</p>
+                          <p className="text text-base">
+                            {name}
+                          </p>
+                        </aside>
+        }
       </div>
     </aside>
   );

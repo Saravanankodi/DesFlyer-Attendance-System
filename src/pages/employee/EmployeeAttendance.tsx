@@ -143,7 +143,7 @@ const EmployeeAttendance = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
-              <thead className="bg-blue-600 text-white">
+              <thead className="bg-blue-600 text-white border">
                 <tr>
                   <th className="py-4 px-6 font-semibold">Date</th>
                   <th className="py-4 px-6 font-semibold">Name</th>
