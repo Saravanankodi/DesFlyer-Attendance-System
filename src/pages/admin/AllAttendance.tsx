@@ -1,6 +1,6 @@
 // src/pages/admin/AllAttendance.tsx
-import React, { useEffect, useState } from 'react';
-import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 import type { AttendanceRecord } from '../../firebase/types';
 import { formatTime, formatHours } from '../../lib/formatUtils';
@@ -12,7 +12,7 @@ interface Employee {
 }
 
 function AllAttendance() {
-  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [, setEmployees] = useState<Employee[]>([]);
   const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterEmployeeId, setFilterEmployeeId] = useState('');
@@ -41,7 +41,7 @@ function AllAttendance() {
   useEffect(() => {
     const fetchAttendance = async () => {
       setLoading(true);
-      let q = query(collection(db, 'attendance'), orderBy('date', 'desc'), orderBy('checkIn', 'desc'));
+      const q = query(collection(db, 'attendance'), orderBy('date', 'desc'), orderBy('checkIn', 'desc'));
 
       const snapshot = await getDocs(q);
       const records: AttendanceRecord[] = [];
