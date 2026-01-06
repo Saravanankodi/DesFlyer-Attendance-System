@@ -57,7 +57,7 @@ function AllAttendance() {
 
   // Group records by date and employee
   const groupedData = attendanceRecords.reduce((groups, record) => {
-    const dateKey = record.date.split('-').reverse().join(''); // DDMMYYYY
+    const dateKey = record.date.split('-').reverse().toLocaleString('en-GB').replaceAll(',','/') // DDMMYYYY
     const empKey = record.employeeId;
 
     if (!groups[dateKey]) groups[dateKey] = {};
@@ -181,7 +181,7 @@ function AllAttendance() {
                         </td>
                         <td className="py-4 px-6 font-bold text-purple-600">{totalHoursStr}</td>
                         <td className="py-4 px-6">
-                          <span className={`px-4 py-2 rounded-full text-white font-medium ${statusColor}`}>
+                          <span className={`px-4 py-2 text-nowrap rounded-full text-white font-medium ${statusColor}`}>
                             {status}
                           </span>
                         </td>

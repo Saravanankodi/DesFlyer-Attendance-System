@@ -111,25 +111,25 @@ const EmployeeAttendance = () => {
 
       {/* Single Toggle Button */}
       <div className="flex gap-5">
-        <p className="text py-4 px-4 text-center text-xl border rounded-xl">
+        <p className="date py-4 px-4 text-center text-xl border rounded-xl">
           {today}
         </p>
         <button
           onClick={handleToggle}
           disabled={loading || !currentUser}
-          className={`px-10 py-4 text-white font-bold rounded-xl transition text-xl ${
+          className={`date px-10 py-4 text-white font-bold rounded-xl transition text-xl ${
             isCheckedIn
-              ? 'bg-red-600 hover:bg-red-700'
-              : 'bg-[#0496ff] hover:bg-blue-700'
+              ? 'bg-[#FF383C] hover:bg-red-700'
+              : 'bg-[#34C759] hover:bg-blue-700'
           } disabled:bg-gray-400`}
         >
-          {loading ? 'PROCESSING...' : isCheckedIn ? 'CHECK OUT' : 'CHECK IN'}
+          {loading ? 'PROCESSING...' : isCheckedIn ? 'CHECK-OUT' : 'CHECK-IN'}
         </button>
       </div>
 
 {message && (
   <div className={`mt-4 text-center font-medium ${
-    message.includes("successfully") ? "text-green-600" : "text-red-600"
+    message.includes("successfully") ? "text-[#34C759]" : "text-[#FF383C]"
   }`}>
     {message}
   </div>
@@ -150,12 +150,12 @@ const EmployeeAttendance = () => {
             <table className="w-full text-left border-collapse">
               <thead className="bg-[#0496ff] text-white border">
                 <tr>
-                  <th className="py-4 px-6 font-semibold border border-black">Date</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Name</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Check In</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Check Out</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Total Hours</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Status</th>
+                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Date</th>
+                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Name</th>
+                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Check In</th>
+                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Check Out</th>
+                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Total Hours</th>
+                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Status</th>
                   {/* <th className="py-4 px-6 font-semibold border border-black">Calendar</th> */}
                 </tr>
               </thead>
@@ -180,24 +180,24 @@ const EmployeeAttendance = () => {
 
                     return (
                       <tr key={dateKey} className="border-b hover:bg-gray-50">
-                        <td className="py-4 px-6 font-medium border text-center">{dateKey}</td>
-                        <td className="py-4 px-6 border text-center">{dayRecords[0].name}</td>
-                        <td className="py-4 px-6 border text-center">
+                        <td className="py-4 px-6 text font-medium border text-center">{dateKey}</td>
+                        <td className="py-4 px-6 text border text-center">{dayRecords[0].name}</td>
+                        <td className="py-4 px-6 text border text-center">
                           <div className="space-y-1">
                             {dayRecords.map((r, i) => (
                               <div key={i}>{formatTime(r.checkIn)}</div>
                             ))}
                           </div>
                         </td>
-                        <td className="py-4 px-6 border text-center">
+                        <td className="py-4 px-6 border text text-center">
                           <div className="space-y-1">
                             {dayRecords.map((r, i) => (
                               <div key={i}>{formatTime(r.checkOut)}</div>
                             ))}
                           </div>
                         </td>
-                        <td className="py-4 px-6 font-bold border text-center">{totalHoursStr}</td>
-                        <td className="py-4 px-6 border text-center">
+                        <td className="py-4 px-6 font-bold border text text-center">{totalHoursStr}</td>
+                        <td className="py-4 px-6 border text text-center">
                           <span className={`px-4 py-2 rounded-full text-white font-medium ${statusColor}`}>
                             {status}
                           </span>

@@ -60,7 +60,7 @@ export function Sidebar({ onLogout }: { onLogout: () => void }) {
             key={item.label}
             to={item.path}
             className={`
-              group flex items-center gap-4 rounded-lg px-3 py-3 text-sm font-medium transition-all
+              group sidebar text-sm flex items-center gap-4 rounded-lg px-3 py-3  font-medium transition-all
               ${
                 isActive(item.path)
                   ? "bg-[#0496ff] text-white shadow-md"
@@ -75,7 +75,7 @@ export function Sidebar({ onLogout }: { onLogout: () => void }) {
         <button
           onClick={onLogout}
           className="
-            group flex items-center gap-4 rounded-lg px-3 py-3 text-sm font-medium w-full
+            group flex items-center gap-4 rounded-lg px-3 py-3 sidebar text-sm font-medium w-full
             hover:text-white hover:bg-[#0496ff] transition-all
           "
         >
@@ -84,13 +84,12 @@ export function Sidebar({ onLogout }: { onLogout: () => void }) {
         </button>
       </nav>
 
-      {/* Logout */}
       <div className="p-3 border-t border-gray-200 flex items-center justify-evenly">
         <img src={avatar} alt="pofile" className="w-10 h-10" />
         {
           !collapsed && <aside className="text">
-                          <p className="text text-sm">Welcome back 👋</p>
-                          <p className="text text-base">
+                          <p className="sidebar text-xs">Welcome back 👋</p>
+                          <p className="sidebar text-xs">
                             {name}
                           </p>
                         </aside>

@@ -3,7 +3,8 @@ import  { useEffect, useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 import { getTodayDateString } from '../../lib/attendanceUtils';
-
+import Card from '../../components/base/Card';
+import profile from '../../assets/admin.png'
 interface Stats {
   totalEmployees: number;
   checkedInToday: number;
@@ -83,23 +84,21 @@ function AdminDashboard() {
     fetchStats();
   }, []);
 
-  const formatHours = (minutes: number): string => {
-    if (minutes === 0) return "0h 0m";
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return `${hours}h ${mins}m`;
-  };
+  // const formatHours = (minutes: number): string => {
+  //   if (minutes === 0) return "0h 0m";
+  //   const hours = Math.floor(minutes / 60);
+  //   const mins = minutes % 60;
+  //   return `${hours}h ${mins}m`;
+  // };
 
   return (
     <>
       <section className="w-full transition duration-300">
-        <header className="w-full h-auto m-auto mb-10">
-          <h1 className="heading text-4xl my-2.5 text-center">
-            Admin Dashboard
+        <header className="w-full h-auto flex items-center justify-between px-5 border-2 border-[#0496ff] rounded-2xl m-auto mb-10">
+          <h1 className="heading text-[42px] my-2.5 text-center">
+            Welcome Saravanankodi- <span className="text-[#0496ff] ">Admin</span>
           </h1>
-          <p className="text-center text-lg text-gray-600 mt-2">
-            Overview of attendance for today - {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '/')}
-          </p>
+          <img src={profile} alt="profile" />
         </header>
 
         {loading ? (
@@ -107,42 +106,15 @@ function AdminDashboard() {
             <p className="text-xl text-gray-600">Loading dashboard stats...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto">
             {/* Total Employees */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+            {/* <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
               <h3 className="text-2xl font-bold text-gray-800 mb-4">Total Employees</h3>
               <p className="text-5xl font-extrabold text-[#0496ff]">{stats.totalEmployees}</p>
-            </div>
-
-            {/* Checked In Today */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Checked In Today</h3>
-              <p className="text-5xl font-extrabold text-green-600">{stats.checkedInToday}</p>
-            </div>
-
-            {/* Total Hours Today */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Total Hours Today</h3>
-              <p className="text-4xl font-extrabold text-purple-600">{formatHours(stats.totalHoursToday)}</p>
-            </div>
-
-            {/* Present Today */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Present (Full Day)</h3>
-              <p className="text-5xl font-extrabold text-green-600">{stats.presentToday}</p>
-            </div>
-
-            {/* Partial Today */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Partial Day</h3>
-              <p className="text-5xl font-extrabold text-yellow-600">{stats.partialToday}</p>
-            </div>
-
-            {/* Absent Today */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Absent Today</h3>
-              <p className="text-5xl font-extrabold text-red-600">{stats.absentToday}</p>
-            </div>
+            </div> */}
+            <Card label='Total Employees' value={stats.totalEmployees} color='#0496FF'/>
+            <Card label='Today Attendance' value={stats.checkedInToday} color='#34C759'/>
+            <Card label='Today Leave' value={stats.absentToday} color='#FF383C'/>           
           </div>
         )}
       </section>

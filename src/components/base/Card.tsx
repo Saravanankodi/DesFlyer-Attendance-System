@@ -8,11 +8,11 @@ interface CardProps {
 const Card:React.FC<CardProps> = ({label,value,color}) => {
   return (
     <>
-    <section className="w-3xs h-fit border rounded-2xl px-10 py-5">
-        <h2 className="heading text-2xl text-center ">
+    <section className="w-auto h-fit shadow-[0px_4px_4px_0px] shadow-[#0496FF80] border rounded-2xl px-10 py-5">
+        <h2 className="heading text-[32px] text-center text-nowrap ">
             {label}
         </h2>
-        <p className={`text-2xl text-[${color}] text-center`}>
+        <p className={`sub-text text-[32px] text-[${color}] text-center`}>
             {value}
         </p>
     </section>
