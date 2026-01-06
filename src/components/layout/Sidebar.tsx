@@ -35,8 +35,8 @@ export function Sidebar({ onLogout }: { onLogout: () => void }) {
 
   return (
     <aside
-      className={`h-screen bg-white border-r border-gray-200 transition-all duration-300 ease-in-out flex flex-col ${
-        collapsed ? "w-20" : "w-64"
+      className={`h-screen max-md:hidden bg-white border-r border-gray-200 transition-all duration-300 ease-in-out flex flex-col ${
+        collapsed ? "w-20 max-md:w-16" : "w-64 max-sm:w-40"
       }`}
     >
       {/* Header */}

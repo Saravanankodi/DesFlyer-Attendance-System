@@ -23,7 +23,7 @@ const Login = () => {
     try {
       await login(email, password);
       navigate("/"); // Will redirect based on role via ProtectedRoute
-    } catch (err: any) {
+    } catch (err) {
       setError("Failed to log in. Check email/password.");
       console.error(err);
     }
@@ -32,11 +32,11 @@ const Login = () => {
   };
 
   return (
-    <section className="w-full h-screen overflow-hidden flex items-center justify-center m-auto">
-        <aside className="w-3/5 h-full m-auto">
+    <section className="w-full h-screen overflow-hidden md:flex items-center justify-center m-auto">
+        <aside className="hidden md:block md:w-3/5 h-full m-auto">
             <img src={bgImg} alt="" className='h-auto w-full' />
         </aside>
-        <main className="w-2/5 h-full flex flex-col items-center justify-center gap-5">
+        <main className="md:w-2/5 h-full flex flex-col items-center justify-center gap-5">
             <header className="w-full h-fit m-auto">
                 <img src={logo} alt="" className='block w-1/2 h-auto m-auto ' />
             </header>

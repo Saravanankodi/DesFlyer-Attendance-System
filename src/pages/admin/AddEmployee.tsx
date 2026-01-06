@@ -1,4 +1,3 @@
-// src/pages/admin/AddEmployee.tsx
 import React, { useState } from 'react';
 import { Input } from '../../components/base/Input';
 import { Button } from '../../components/base/Button';
@@ -51,7 +50,7 @@ function AddEmployee() {
       setNotes('');
       setEmail('');
       setPassword('');
-    } catch (error: any) {
+    } catch (error:any) {
       let errorMsg = 'Failed to add employee';
       if (error.code === 'auth/email-already-in-use') {
         errorMsg = 'Email already in use';
@@ -69,7 +68,7 @@ function AddEmployee() {
 
   return (
     <>
-      <section className="w-3/4 transition duration-300">
+      <section className="w-full transition duration-300">
         <header className="w-full h-auto m-auto">
           <h1 className="heading text-4xl my-2.5 text-center">
             Add Employees
