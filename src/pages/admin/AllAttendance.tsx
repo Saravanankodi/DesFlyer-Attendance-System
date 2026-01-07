@@ -141,14 +141,14 @@ function AllAttendance() {
             <table className="w-full text-left border-collapse">
               <thead className="bg-[#0496ff] text-white">
                 <tr>
-                  <th className="py-4 px-6 font-semibold border border-black">Date</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Employee ID</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Name</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Check In</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Check Out</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Total Hours</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Status</th>
-                  <th className="py-4 px-6 font-semibold border border-black">Calendar</th>
+                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Date</th>
+                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Employee ID</th>
+                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Name</th>
+                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Check In</th>
+                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Check Out</th>
+                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Total Hours</th>
+                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Status</th>
+                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Calendar</th>
                 </tr>
               </thead>
               <tbody>
@@ -162,17 +162,17 @@ function AllAttendance() {
 
                     return (
                       <tr key={`${dateKey}-${empId}`} className="border-b hover:bg-gray-50">
-                        <td className="py-4 px-6 font-medium border border-black">{dateKey}</td>
-                        <td className="py-4 px-6 border border-black">{empId}</td>
-                        <td className="py-4 px-6 border border-black">{name}</td>
-                        <td className="py-4 px-6 border border-black">
+                        <td className="py-4 px-6 font-medium border border-black text text-base">{dateKey}</td>
+                        <td className="py-4 px-6 border border-black text text-base">{empId}</td>
+                        <td className="py-4 px-6 border border-black text text-base">{name}</td>
+                        <td className="py-4 px-6 border border-black text text-base">
                           <div className="space-y-2">
                             {records.map((r, i) => (
                               <div key={i} className="text-sm">{formatTime(r.checkIn)}</div>
                             ))}
                           </div>
                         </td>
-                        <td className="py-4 px-6 border border-black">
+                        <td className="py-4 px-6 border border-black text text-base">
                           <div className="space-y-2">
                             {records.map((r, i) => (
                               <div key={i} className="text-sm">{formatTime(r.checkOut || null)}</div>
@@ -180,12 +180,12 @@ function AllAttendance() {
                           </div>
                         </td>
                         <td className="py-4 px-6 font-bold text-purple-600 border border-black">{totalHoursStr}</td>
-                        <td className="py-4 px-6 border border-black">
+                        <td className="py-4 px-6 border border-black text text-base">
                           <span className={`px-4 py-2 text-nowrap rounded-full text-white font-medium ${statusColor}`}>
                             {status}
                           </span>
                         </td>
-                        <td className="py-4 px-6 text-center border border-black">
+                        <td className="py-4 px-6 text-center border border-black text text-base">
                           <button className="flex items-center gap-2 mx-auto text-[#0496ff] hover:underline font-medium">
                             <img src="/src/assets/celander.png" alt="Calendar" className="w-6 h-6" />
                             View Details
