@@ -93,8 +93,8 @@ function AllAttendance() {
     <>
       <section className="w-full transition duration-300">
         <header className="w-full h-auto m-auto mb-8">
-          <h1 className="heading text-4xl my-2.5 text-center">
-            All Employees Attendance
+          <h1 className="heading text-4xl max-w-7xl m-auto my-2.5">
+            Attendance <span className="text-[#0496ff] ">(Admin)</span>
           </h1>
         </header>
 
@@ -132,7 +132,7 @@ function AllAttendance() {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {loading ? (
             <p className="text-center py-8 text-gray-600">Loading attendance data...</p>
           ) : filteredDates.length === 0 ? (
@@ -141,14 +141,14 @@ function AllAttendance() {
             <table className="w-full text-left border-collapse">
               <thead className="bg-[#0496ff] text-white">
                 <tr>
-                  <th className="py-4 px-6 font-semibold">Date</th>
-                  <th className="py-4 px-6 font-semibold">Employee ID</th>
-                  <th className="py-4 px-6 font-semibold">Name</th>
-                  <th className="py-4 px-6 font-semibold">Check In</th>
-                  <th className="py-4 px-6 font-semibold">Check Out</th>
-                  <th className="py-4 px-6 font-semibold">Total Hours</th>
-                  <th className="py-4 px-6 font-semibold">Status</th>
-                  <th className="py-4 px-6 font-semibold">Calendar</th>
+                  <th className="py-4 px-6 font-semibold border border-black">Date</th>
+                  <th className="py-4 px-6 font-semibold border border-black">Employee ID</th>
+                  <th className="py-4 px-6 font-semibold border border-black">Name</th>
+                  <th className="py-4 px-6 font-semibold border border-black">Check In</th>
+                  <th className="py-4 px-6 font-semibold border border-black">Check Out</th>
+                  <th className="py-4 px-6 font-semibold border border-black">Total Hours</th>
+                  <th className="py-4 px-6 font-semibold border border-black">Status</th>
+                  <th className="py-4 px-6 font-semibold border border-black">Calendar</th>
                 </tr>
               </thead>
               <tbody>
@@ -162,30 +162,30 @@ function AllAttendance() {
 
                     return (
                       <tr key={`${dateKey}-${empId}`} className="border-b hover:bg-gray-50">
-                        <td className="py-4 px-6 font-medium">{dateKey}</td>
-                        <td className="py-4 px-6">{empId}</td>
-                        <td className="py-4 px-6">{name}</td>
-                        <td className="py-4 px-6">
+                        <td className="py-4 px-6 font-medium border border-black">{dateKey}</td>
+                        <td className="py-4 px-6 border border-black">{empId}</td>
+                        <td className="py-4 px-6 border border-black">{name}</td>
+                        <td className="py-4 px-6 border border-black">
                           <div className="space-y-2">
                             {records.map((r, i) => (
                               <div key={i} className="text-sm">{formatTime(r.checkIn)}</div>
                             ))}
                           </div>
                         </td>
-                        <td className="py-4 px-6">
+                        <td className="py-4 px-6 border border-black">
                           <div className="space-y-2">
                             {records.map((r, i) => (
                               <div key={i} className="text-sm">{formatTime(r.checkOut || null)}</div>
                             ))}
                           </div>
                         </td>
-                        <td className="py-4 px-6 font-bold text-purple-600">{totalHoursStr}</td>
-                        <td className="py-4 px-6">
+                        <td className="py-4 px-6 font-bold text-purple-600 border border-black">{totalHoursStr}</td>
+                        <td className="py-4 px-6 border border-black">
                           <span className={`px-4 py-2 text-nowrap rounded-full text-white font-medium ${statusColor}`}>
                             {status}
                           </span>
                         </td>
-                        <td className="py-4 px-6 text-center">
+                        <td className="py-4 px-6 text-center border border-black">
                           <button className="flex items-center gap-2 mx-auto text-[#0496ff] hover:underline font-medium">
                             <img src="/src/assets/celander.png" alt="Calendar" className="w-6 h-6" />
                             View Details

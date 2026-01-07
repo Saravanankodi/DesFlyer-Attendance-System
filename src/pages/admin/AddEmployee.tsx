@@ -68,7 +68,7 @@ function AddEmployee() {
 
   return (
     <>
-      <section className="w-full transition duration-300">
+      <section className="w-full max-w-7xl m-auto transition duration-300">
         <header className="w-full h-auto m-auto">
           <h1 className="heading text-4xl my-2.5 text-center">
             Add Employees
