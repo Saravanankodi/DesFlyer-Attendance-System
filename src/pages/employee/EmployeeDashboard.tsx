@@ -50,7 +50,7 @@ const EmployeeDashboard = () => {
 
         // Total working days this month = total days - weekends? Or just all days?
         // We'll assume all calendar days (you can adjust later)
-        const totalDaysThisMonth = new Date(today).getDay()
+        const totalDaysThisMonth = new Date(today).getDate()
 
         // Leaves = total days - days with any attendance record
         const leavesTaken = totalDaysThisMonth - attendedDates.size;
@@ -81,7 +81,7 @@ const EmployeeDashboard = () => {
           role={currentUser.role || 'employee'} 
         />
 
-        <main className="w-full h-auto flex items-center justify-center gap-5 m-5 flex-wrap">
+        <main className="w-full h-auto flex items-center justify-center gap-5 sm:m-5 pt-10 flex-wrap">
           <Card 
             label='Attendance'
             value={loading ? '...' : presentDays}
