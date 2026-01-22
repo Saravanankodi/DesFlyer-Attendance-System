@@ -11,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -19,17 +20,30 @@ const Login = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
-
+  
     try {
-      await login(email, password);
-      navigate("/"); // Will redirect based on role via ProtectedRoute
-    } catch (err) {
-      setError("Failed to log in. Check email/password.");
+      const user = await login(email, password);
+  
+      // Role-based redirect
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    } catch (err: any) {
+      if (err.code === "auth/user-not-found") {
+        setError("No account found with this email.");
+      } else if (err.code === "auth/wrong-password") {
+        setError("Incorrect password.");
+      } else {
+        setError(err.message || "Failed to log in.");
+      }
       console.error(err);
     }
-
+  
     setLoading(false);
   };
+  
 
   return (
     <section className="w-full h-screen overflow-hidden md:flex items-center justify-center m-auto">
@@ -59,11 +73,18 @@ const Login = () => {
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter password..."
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                <button
+                    type="button"
+                    className="text-sm text-blue-600 self-end"
+                    onClick={() => setShowPassword(p => !p)}
+                >
+                    {showPassword ? "Hide password" : "Show password"}
+                </button>
 
                 <Button
                     variant="primary"

@@ -9,7 +9,7 @@ import type { UserProfile } from "../firebase/types";
 interface AuthContextType {
   currentUser: UserProfile | null;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<UserProfile>;
   logout: () => Promise<void>;
 }
 
@@ -53,10 +53,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return unsubscribe;
   }, []);
 
-  const login = async (email: string, password: string) => {
-    await signInWithEmailAndPassword(auth, email, password);
-    // onAuthStateChanged will handle the rest
+  const login = async (email: string, password: string): Promise<UserProfile> => {
+    const res = await signInWithEmailAndPassword(auth, email, password);
+  
+    const docRef = doc(db, "users", res.user.uid);
+    const docSnap = await getDoc(docRef);
+  
+    if (!docSnap.exists()) {
+      throw new Error("No employee profile found");
+    }
+  
+    const userProfile: UserProfile = {
+      uid: res.user.uid,
+      email: res.user.email || "",
+      ...(docSnap.data() as Omit<UserProfile, "uid" | "email">),
+    };
+  
+    setCurrentUser(userProfile); // Update state immediately
+    return userProfile; // Return user for immediate role check
   };
+  
 
   const logout = async () => {
     await signOut(auth);

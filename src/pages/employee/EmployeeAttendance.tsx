@@ -17,60 +17,71 @@ const EmployeeAttendance = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [isCheckedIn, setIsCheckedIn] = useState<boolean>(false);
+
   const loadData = async () => {
     if (!currentUser) return;
-
+  
     setLoading(true);
-    const today = await getTodayAttendance(currentUser.uid);
-    setTodayRecord(today);
-
-    const recent = await getRecentAttendance(currentUser.uid);
-    setRecentRecords(recent);
-    setLoading(false);
+  
+    try {
+      const today = await getTodayAttendance(currentUser.uid);
+      setTodayRecord(today);
+      const checkedIn = today?.checkIn && !today?.checkOut;
+      setIsCheckedIn(Boolean(checkedIn));
+  
+      const recent = await getRecentAttendance(currentUser.uid);
+      setRecentRecords(recent);
+    } catch (error) {
+      console.error("Load data error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Fixed exhaustive-deps: loadData is stable, but to silence ESLint we memoize it
-  useEffect(() => {
-    if (currentUser) {
-      loadData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser]);
+ useEffect(() => {
+  if (currentUser) loadData();
+}, [currentUser]);
+ 
 
-  const handleToggle = async () => {
-    if (!currentUser || loading) return;
-  
-    setLoading(true);
-    setMessage("");
-  
-    try {
-      if (isCheckedIn) {
-        // Currently checked in → perform check-out
-        await checkOut(currentUser.uid);
-        setMessage("Checked out successfully!");
-        setIsCheckedIn(false);
-      } else {
-        // Currently checked out → perform check-in
-        await checkIn(currentUser.uid, currentUser.employeeId, currentUser.name);
-        setMessage("Checked in successfully!");
-        setIsCheckedIn(true);
-      }
-      await loadData(); // Refresh data (which should trigger updateCheckInStatus)
-    } catch (error: any) {
-      console.error("Toggle error:", error);
-      setMessage(
-        isCheckedIn
-          ? "Check-out failed. Please try again."
-          : error.message || "Check-in failed. Please try again."
-      );
-      // Don't toggle state on failure
-    } finally {
-      setLoading(false);
-      setTimeout(() => setMessage(""), 3000);
-    }}
+const handleToggle = async () => {
+  if (!currentUser || loading) return;
+
+  setLoading(true);
+  setMessage("");
+
+  try {
+    if (isCheckedIn) {
+      await checkOut(currentUser.uid);
+      setMessage("Checked out successfully!");
+    } else {
+      await checkIn(currentUser.uid, currentUser.employeeId, currentUser.name);
+      setMessage("Checked in successfully!");
+    }
+    await loadData(); // now updates isCheckedIn immediately
+  } catch (error: any) {
+    console.error("Toggle error:", error);
+    setMessage(error.message || "Operation failed. Please try again.");
+  } finally {
+    setLoading(false);
+    setTimeout(() => setMessage(""), 3000);
+  }
+};
+const formatDate = (dateStr: string) => {
+  // Handle either DD.MM.YYYY or YYYY-MM-DD
+  if (dateStr.includes(".")) {
+    const [dd, mm, yyyy] = dateStr.split(".");
+    return `${dd}/${mm}/${yyyy}`;
+  } else if (dateStr.includes("-")) {
+    const [yyyy, mm, dd] = dateStr.split("-");
+    return `${dd}/${mm}/${yyyy}`;
+  }
+  return dateStr;
+};
+
 
   // Get today's date for display
-  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  const today = new Date().toLocaleDateString("en-GB");
   
   return (
       <div className="space-y-8">
@@ -87,27 +98,6 @@ const EmployeeAttendance = () => {
           {message}
         </div>
       )}
-
-      {/* <div className="grid grid-cols-3 gap-6 text-center mb-8">
-        <div className="bg-gray-50 p-4 rounded-xl">
-          <p className="text-sm text-gray-600">Check In</p>
-          <p className="text-2xl font-bold text-[#0496ff]">
-            {formatTime(todayRecord?.checkIn || null)}
-          </p>
-        </div>
-        <div className="bg-gray-50 p-4 rounded-xl">
-          <p className="text-sm text-gray-600">Check Out</p>
-          <p className="text-2xl font-bold text-red-600">
-            {formatTime(todayRecord?.checkOut || null)}
-          </p>
-        </div>
-        <div className="bg-gray-50 p-4 rounded-xl">
-          <p className="text-sm text-gray-600">Working Hours</p>
-          <p className="text-3xl font-bold text-purple-600">
-            {formatHours(todayRecord?.workingHours || null)}
-          </p>
-        </div>
-      </div> */}
 
       {/* Single Toggle Button */}
       <div className="flex gap-5">
@@ -126,20 +116,6 @@ const EmployeeAttendance = () => {
           {loading ? 'PROCESSING...' : isCheckedIn ? 'CHECK-OUT' : 'CHECK-IN'}
         </button>
       </div>
-
-{message && (
-  <div className={`mt-4 text-center font-medium ${
-    message.includes("successfully") ? "text-[#34C759]" : "text-[#FF383C]"
-  }`}>
-    {message}
-  </div>
-)}
-      {/* {todayRecord?.checkOut && (
-        <p className="text-center mt-6 text-2xl font-semibold text-green-600">
-          ✓ Completed! Great job today.
-        </p>
-      )} */}
-    {/* </div> */}
 
       {/* Recent History */}
       <div className=" rounded-2xl shadow-lg p-8 max-w-6xl mx-auto">
@@ -180,7 +156,7 @@ const EmployeeAttendance = () => {
 
                     return (
                       <tr key={dateKey} className="border-b hover:bg-gray-50">
-                        <td className="py-4 px-6 text font-medium border text-center">{dateKey}</td>
+                        <td className="py-4 px-6 text font-medium border text-center">{formatDate(dayRecords[0].date)}</td>
                         <td className="py-4 px-6 text border text-center">{dayRecords[0].name}</td>
                         <td className="py-4 px-6 text border text-center">
                           <div className="space-y-1">
