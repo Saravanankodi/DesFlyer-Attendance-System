@@ -21,10 +21,9 @@ const EmployeeDashboard = () => {
       try {
         const today = new Date();
         const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0'); // 01-12
-        const daysInMonth = new Date(year, today.getMonth() + 1, 0).getDate(); // e.g., 31
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const daysInMonth = new Date(year, today.getMonth() + 1, 0).getDate();
 
-        // Query attendance records for current month
         const q = query(
           collection(db, 'attendance'),
           where('userId', '==', currentUser.uid),
@@ -34,31 +33,33 @@ const EmployeeDashboard = () => {
 
         const snapshot = await getDocs(q);
 
-        // Set of dates the employee has attendance
-        const attendedDates = new Set<string>();
-        let presentCount = 0;
+const attendedDates = new Set<string>();
+const presentDates = new Set<string>();
 
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          attendedDates.add(data.date);
+snapshot.forEach(doc => {
+  const data = doc.data();
 
-          // Count as present if working hours >= 4h (240 minutes) or status is 'present'
-          if (data.workingHours >= 20 || data.status === 'present') {
-            presentCount++;
-          }
-        });
+  // any attendance recorded
+  attendedDates.add(data.date);
 
-        // Total working days this month = total days - weekends? Or just all days?
-        // We'll assume all calendar days (you can adjust later)
-        const totalDaysThisMonth = new Date(today).getDate()
+  // present condition
+  if (data.workingHours >= 240 || data.status === 'present') {
+    presentDates.add(data.date);
+  }
+});
 
-        // Leaves = total days - days with any attendance record
-        const leavesTaken = totalDaysThisMonth - attendedDates.size;
+const elapsedDays = today.getDate();
 
-        setPresentDays(presentCount);
-        setLeavesThisMonth(leavesTaken);
+const leavesTaken = Math.max(
+  0,
+  elapsedDays - attendedDates.size
+);
+
+setPresentDays(presentDates.size);
+setLeavesThisMonth(leavesTaken);
+
       } catch (error) {
-        console.error("Error fetching stats:", error);
+        console.error('Error fetching stats:', error);
         setPresentDays(0);
         setLeavesThisMonth(0);
       } finally {
@@ -76,21 +77,21 @@ const EmployeeDashboard = () => {
   return (
     <>
       <section className="w-full h-auto">
-        <Banner 
-          employeeName={currentUser.name || 'Employee'} 
-          role={currentUser.role || 'employee'} 
+        <Banner
+          employeeName={currentUser.name || 'Employee'}
+          role={currentUser.role || 'employee'}
         />
 
         <main className="w-full h-auto flex items-center justify-center gap-5 sm:m-5 pt-10 flex-wrap">
-          <Card 
-            label='Attendance'
+          <Card
+            label="Attendance"
             value={loading ? '...' : presentDays}
-            color='#0496ff'
+            color="#0496ff"
           />
-          <Card 
-            label='Leaves'
+          <Card
+            label="Leaves"
             value={loading ? '...' : leavesThisMonth}
-            color='#0496ff'
+            color="#0496ff"
           />
         </main>
       </section>
