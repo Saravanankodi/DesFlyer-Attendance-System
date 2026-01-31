@@ -19,6 +19,20 @@ function AllAttendance() {
   const [filterDate, setFilterDate] = useState('');
   const [filterMonth, setFilterMonth] = useState('');
 
+  const isFilterActive =
+  filterEmployeeId !== '' ||
+  filterDate !== '' ||
+  filterMonth !== '';
+
+  const getDateString = (date: Date) =>
+    date.toISOString().split('T')[0];
+  
+  const todayStr = getDateString(new Date());
+  
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = getDateString(yesterday);  
+  
   // Fetch all employees
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -55,12 +69,24 @@ function AllAttendance() {
     fetchAttendance();
   }, []);
 
+  const hasTodayCheckIn = attendanceRecords.some(
+    r => r.date === todayStr
+  );
+  
+  const autoDate = hasTodayCheckIn ? todayStr : yesterdayStr;
+  
+  const baseRecords = isFilterActive
+    ? attendanceRecords           // filters ON → all data
+    : attendanceRecords.filter(   // filters OFF → auto date
+        r => r.date === autoDate
+      );
+  
   // Group records by date and employee
-  const groupedData = attendanceRecords.reduce((groups, record) => {
+  const groupedData = baseRecords.reduce((groups, record) => {
     const [year, month, day] = record.date.split('-');
-    const dateKey = `${day}/${month}/${year}`; // DD/MM/YYYY
+    const dateKey = `${day}/${month}/${year}`;
     const empKey = record.employeeId;
-
+  
     if (!groups[dateKey]) groups[dateKey] = {};
     if (!groups[dateKey][empKey]) {
       groups[dateKey][empKey] = {
@@ -68,10 +94,11 @@ function AllAttendance() {
         records: [],
       };
     }
+  
     groups[dateKey][empKey].records.push(record);
     return groups;
   }, {} as Record<string, Record<string, { name: string; records: AttendanceRecord[] }>>);
-
+  
   // Apply filters
   const filteredDates = Object.keys(groupedData)
     .filter(dateKey => {
@@ -96,7 +123,13 @@ function AllAttendance() {
       
       return true;
     })
-    .sort((a, b) => b.localeCompare(a)); // Latest first
+    .sort((a, b) => {
+      const [da, ma, ya] = a.split('/').map(Number);
+      const [db, mb, yb] = b.split('/').map(Number);
+      return new Date(yb, mb - 1, db).getTime()
+           - new Date(ya, ma - 1, da).getTime();
+    });
+    
 
   return (
     <>
