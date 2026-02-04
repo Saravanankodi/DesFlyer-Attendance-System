@@ -20,23 +20,28 @@ export const getTodayDateString = (): string => {
   return now.toISOString().split("T")[0]; // YYYY-MM-DD
 };
 
-export const getTodayAttendance = async (userId: string): Promise<AttendanceRecord | null> => {
+export const getTodayAttendance = async (
+  userId: string
+): Promise<AttendanceRecord | null> => {
   const today = getTodayDateString();
+
   const q = query(
     collection(db, ATTENDANCE_COLLECTION),
     where("userId", "==", userId),
-    where("date", "==", today)
+    where("date", "==", today),
+    orderBy("checkIn", "desc"),
+    limit(1)
   );
 
   const snapshot = await getDocs(q);
   if (snapshot.empty) return null;
 
-  const docSnap = snapshot.docs[0];
   return {
-    id: docSnap.id,
-    ...docSnap.data(),
+    id: snapshot.docs[0].id,
+    ...snapshot.docs[0].data(),
   } as AttendanceRecord;
 };
+
 
 // Allow multiple check-ins
 export const checkIn = async (userId: string, employeeId: string, name: string): Promise<void> => {

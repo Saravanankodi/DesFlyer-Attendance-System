@@ -33,30 +33,30 @@ const EmployeeDashboard = () => {
 
         const snapshot = await getDocs(q);
 
-const attendedDates = new Set<string>();
-const presentDates = new Set<string>();
+        const attendedDates = new Set<string>();
+        const presentDates = new Set<string>();
 
-snapshot.forEach(doc => {
-  const data = doc.data();
+        snapshot.forEach(doc => {
+          const data = doc.data();
 
-  // any attendance recorded
-  attendedDates.add(data.date);
+          // any attendance recorded
+          attendedDates.add(data.date);
 
-  // present condition
-  if (data.workingHours >= 240 || data.status === 'present') {
-    presentDates.add(data.date);
-  }
-});
+          // present condition
+          if (data.workingHours >= 240 || data.status === 'present') {
+            presentDates.add(data.date);
+          }
+        });
 
-const elapsedDays = today.getDate();
+        const elapsedDays = today.getDate();
 
-const leavesTaken = Math.max(
-  0,
-  elapsedDays - attendedDates.size
-);
+        const leavesTaken = Math.max(
+          0,
+          elapsedDays - attendedDates.size
+        );
 
-setPresentDays(presentDates.size);
-setLeavesThisMonth(leavesTaken);
+        setPresentDays(presentDates.size);
+        setLeavesThisMonth(leavesTaken);
 
       } catch (error) {
         console.error('Error fetching stats:', error);
