@@ -118,13 +118,12 @@ const formatDate = (dateStr: string) => {
       </div>
 
       {/* Recent History */}
-      <div className=" rounded-2xl shadow-lg p-8 max-w-6xl mx-auto">
+      <div className=" max-h-[75vh] h-full rounded-2xl shadow-lg max-w-6xl mx-auto overflow-y-scroll">
         {recentRecords.length === 0 ? (
           <p className="text-center text-gray-500 py-8">No attendance records yet.</p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead className="bg-[#0496ff] text-white border">
+            <table className="w-full h-max text-left border border-collapse">
+              <thead className="bg-[#0496ff] text-white border  sticky top-0 ">
                 <tr>
                   <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Date</th>
                   <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Name</th>
@@ -189,7 +188,6 @@ const formatDate = (dateStr: string) => {
                   })}
               </tbody>
             </table>
-          </div>
         )}
       </div>
     </div>
