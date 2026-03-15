@@ -12,7 +12,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<UserProfile>;
   logout: () => Promise<void>;
 }
-
+// Create 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
