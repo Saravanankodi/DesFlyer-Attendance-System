@@ -132,7 +132,7 @@ function AddEmployee() {
             variant={'primary'}
             type="submit"
             disabled={loading}
-            className='rounded-lg'
+            className='rounded-lg w-full'
           >
             {loading ? 'Adding Employee...' : 'Add Employee'}
           </Button>

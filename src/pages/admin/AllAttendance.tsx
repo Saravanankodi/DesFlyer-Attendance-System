@@ -141,25 +141,25 @@ function AllAttendance() {
         </header>
 
         {/* Filters */}
-        <div className="max-w-4xl max-h-12 mx-auto flex flex-wrap gap-4 justify-center">
+        <div className="w-full max-h-12 mx-auto flex flex-wrap items-center justify-between">
           <input
             type="text"
             placeholder="Filter by Employee ID"
             value={filterEmployeeId}
             onChange={(e) => setFilterEmployeeId(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0496ff]"
+            className="px-4 py-2 border border-black fillter rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0496ff]"
           />
           <input
             type="date"
             value={filterDate}
             onChange={(e) => setFilterDate(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0496ff]"
+            className="px-4 py-2 border border-black fillter rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0496ff]"
           />
           <input
             type="month"
             value={filterMonth}
             onChange={(e) => setFilterMonth(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0496ff]"
+            className="px-4 py-2 border border-black fillter rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0496ff]"
           />
           <button
             onClick={() => {
@@ -174,22 +174,22 @@ function AllAttendance() {
         </div>
 
         {/* Table */}
-        <div className="max-w-7xl max-h-4/5 mx-auto overflow-y-scroll ">
+        <div className="w-full max-h-4/5 mx-auto overflow-y-scroll no-scrollbar rounded-xl border shadow-sm ">
           {loading ? (
             <p className="text-center py-8 text-gray-600">Loading attendance data...</p>
           ) : filteredDates.length === 0 ? (
             <p className="text-center py-8 text-gray-600">No attendance records found.</p>
           ) : (
-            <table className="w-full text-left border-collapse">
-              <thead className="bg-[#0496ff] sticky top-0 text-white">
+            <table className="w-full h-full text-left  border-none ">
+              <thead className="bg-[#136CED] sticky top-0 text-white">
                 <tr>
-                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Date</th>
-                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Employee ID</th>
-                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Name</th>
-                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Check In</th>
-                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Check Out</th>
-                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Total Hours</th>
-                  <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Status</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 border-l-0 border-black sub-heading text-base text-center">Date</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 border-black sub-heading text-base text-center">Employee ID</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 border-black sub-heading text-base text-center">Name</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 border-black sub-heading text-base text-center">Check In</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 border-black sub-heading text-base text-center">Check Out</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 border-black sub-heading text-base text-center">Total Hours</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 border-r-0 border-black sub-heading text-base text-center ">Status</th>
                   {/* <th className="py-4 px-6 font-semibold border border-black sub-heading text-base text-center">Calendar</th> */}
                 </tr>
               </thead>
@@ -204,7 +204,7 @@ function AllAttendance() {
 
                     return (
                       <tr key={`${dateKey}-${empId}`} className="border-b hover:bg-gray-50">
-                        <td className="py-4 px-6 font-medium border border-black text text-base">{dateKey}</td>
+                        <td className="py-4 px-6 font-medium border border-l-0 border-black text text-base">{dateKey}</td>
                         <td className="py-4 px-6 border border-black text text-base">{empId}</td>
                         <td className="py-4 px-6 border border-black text text-base">{name}</td>
                         <td className="py-4 px-6 border border-black text text-base">
@@ -222,7 +222,7 @@ function AllAttendance() {
                           </div>
                         </td>
                         <td className="py-4 px-6 font-bold text-purple-600 border border-black">{totalHoursStr}</td>
-                        <td className="py-4 px-6 border border-black text text-base">
+                        <td className="py-4 px-6 border border-black border-r-0 text text-base">
                           <span className={`px-4 py-2 text-nowrap rounded-full text-white font-medium ${statusColor}`}>
                             {status}
                           </span>

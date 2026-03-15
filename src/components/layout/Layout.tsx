@@ -14,12 +14,12 @@ const Layout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen max-h-screen overflow-hidden bg-gray-50 flex">
       {/* Sidebar - only needs onLogout */}
       <Sidebar onLogout={handleLogout} />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col">
+      <div className=" flex-1 flex flex-col">
         {/* Banner - only needs employeeName and role */}
         {/* <Banner
           employeeName={currentUser?.name || "Employee"}
@@ -27,7 +27,7 @@ const Layout = () => {
         /> */}
 
         {/* Page Content */}
-        <main className="flex-1 p-6 max-h-screen bg-gray-50">
+        <main className="flex-1 p-6 max-h-screen overflow-auto no-scrollbar bg-gray-50">
           <Outlet />
         </main>
       </div>

@@ -48,13 +48,13 @@ const Login = () => {
   return (
     <section className="w-full h-screen overflow-hidden md:flex items-center justify-center m-auto">
         <aside className="hidden md:block md:w-3/5 h-full m-auto">
-            <img src={bgImg} alt="" className='h-auto w-full' />
+            <img src={bgImg} alt="" className='h-auto w-full ' />
         </aside>
-        <main className="md:w-2/5 h-full flex flex-col items-center justify-center gap-5">
-            <header className="w-full h-fit m-auto">
-                <img src={logo} alt="" className='block w-1/2 h-auto m-auto ' />
+        <main className="md:w-2/5 h-full flex flex-col items-center justify-center">
+            <header className="w-4/5 h-fit m-auto">
+                <img src={logo} alt="" className='block w-2/5 h-auto max-h-75 max-w-75 m-auto ' />
             </header>
-            <section className="w-full h-full p-5">
+            <section className="w-full h-auto p-5">
                 <header className="w-full h-auto p-2">
                 <h2 className="heading text-3xl my-3 text-center">
                     ATTENDANCE LOGIN
@@ -69,11 +69,13 @@ const Login = () => {
                 <Input
                     type="email"
                     placeholder="Enter email..."
+                    className=" shadow-[0px_4px_4px_0px_#00000040] placeholder:text-[#A1A1A1] border-2"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
                     type={showPassword ? "text" : "password"}
+                    className=" shadow-[0px_4px_4px_0px_#00000040] placeholder:text-[#A1A1A1] border-2"
                     placeholder="Enter password..."
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

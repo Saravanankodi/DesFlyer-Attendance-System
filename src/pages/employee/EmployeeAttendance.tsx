@@ -118,19 +118,19 @@ const formatDate = (dateStr: string) => {
       </div>
 
       {/* Recent History */}
-      <div className=" max-h-[75vh] h-full rounded-2xl shadow-lg max-w-6xl mx-auto overflow-y-scroll">
+      <div className=" max-h-[75vh] h-full rounded-2xl shadow-lg max-w-6xl mx-auto overflow-y-scroll no-scrollbar border ">
         {recentRecords.length === 0 ? (
           <p className="text-center text-gray-500 py-8">No attendance records yet.</p>
         ) : (
-            <table className="w-full h-max text-left border border-collapse">
-              <thead className="bg-[#0496ff] text-white border  sticky top-0 ">
+            <table className="w-full h-full text-left">
+              <thead className="bg-[#136CED] text-white border-none  sticky top-0 ">
                 <tr>
-                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Date</th>
-                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Name</th>
-                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Check In</th>
-                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Check Out</th>
-                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Total Hours</th>
-                  <th className="py-4 px-6 font-semibold border sub-heading text-center text-base border-black">Status</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 sub-heading text-center text-base border-black border-l-0">Date</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 sub-heading text-center text-base border-black">Name</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 sub-heading text-center text-base border-black">Check In</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 sub-heading text-center text-base border-black">Check Out</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 sub-heading text-center text-base border-black">Total Hours</th>
+                  <th className="py-4 px-6 font-semibold border border-t-0 sub-heading text-center text-base border-black border-r-0">Status</th>
                   {/* <th className="py-4 px-6 font-semibold border border-black">Calendar</th> */}
                 </tr>
               </thead>
@@ -155,7 +155,7 @@ const formatDate = (dateStr: string) => {
 
                     return (
                       <tr key={dateKey} className="border-b hover:bg-gray-50">
-                        <td className="py-4 px-6 text font-medium border text-center">{formatDate(dayRecords[0].date)}</td>
+                        <td className="py-4 px-6 text font-medium border text-center border-l-0">{formatDate(dayRecords[0].date)}</td>
                         <td className="py-4 px-6 text border text-center">{dayRecords[0].name}</td>
                         <td className="py-4 px-6 text border text-center">
                           <div className="space-y-1">
@@ -172,7 +172,7 @@ const formatDate = (dateStr: string) => {
                           </div>
                         </td>
                         <td className="py-4 px-6 font-bold border text text-center">{totalHoursStr}</td>
-                        <td className="py-4 px-6 border text text-center">
+                        <td className="py-4 px-6 border text text-center border-r-0">
                           <span className={`px-4 py-2 rounded-full text-white font-medium ${statusColor}`}>
                             {status}
                           </span>

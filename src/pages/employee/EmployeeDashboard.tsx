@@ -43,7 +43,7 @@ const EmployeeDashboard = () => {
           attendedDates.add(data.date);
 
           // present condition
-          if (data.workingHours >= 240 || data.status === 'present') {
+          if (data.workingHours >= 20 || data.status === 'present') {
             presentDates.add(data.date);
           }
         });

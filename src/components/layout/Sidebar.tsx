@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/desflyer.png";
-import logoutIcon from "../../assets/logout.png";
-import dashboardIcon from "../../assets/dashbord.png";
-import calendarIcon from "../../assets/celander.png";
 import expand from '../../assets/expand.png'
 import avatar from '../../assets/Avatar.png'
+import SvgDashboard from "../../assets/icons/Dashboard";
+import SvgCalander from "../../assets/icons/Calander";
+import SvgLogout from "../../assets/icons/Logout";
+import SvgAdd from "../../assets/icons/Add";
 
 
 export function Sidebar({ onLogout }: { onLogout: () => void }) {
@@ -18,14 +19,14 @@ export function Sidebar({ onLogout }: { onLogout: () => void }) {
   const name = currentUser?.name;
 
   const employeeItems = [
-    { label: "Dashboard", path: "/", icon: dashboardIcon },
-    { label: "Attendance", path: "/attendance", icon: calendarIcon },
+    { label: "Dashboard", path: "/", icon: <SvgDashboard className="w-6 h-6"/> },
+    { label: "Attendance", path: "/attendance", icon: <SvgCalander className="w-6 h-6"/> },
   ];
 
   const adminItems = [
-    { label: "Admin Dashboard", path: "/admin", icon: dashboardIcon },
-    { label: "All Attendance", path: "/admin/all-attendance", icon: calendarIcon },
-    { label: "Add Employee", path: "/admin/add-employee", icon: "/src/assets/add_user.png" },
+    { label: "Admin Dashboard", path: "/admin", icon: <SvgDashboard className="w-6 h-6"/> },
+    { label: "All Attendance", path: "/admin/all-attendance", icon: <SvgCalander className="w-6 h-6"/> },
+    { label: "Add Employee", path: "/admin/add-employee", icon:<SvgAdd className="w-6 h-6"/> },
     // Add more admin items here when you implement them
   ];
 
@@ -60,26 +61,29 @@ export function Sidebar({ onLogout }: { onLogout: () => void }) {
             key={item.label}
             to={item.path}
             className={`
-              group sidebar text-sm flex items-center gap-4 rounded-lg px-3 py-3  font-medium transition-all
+              group sidebar text-sm flex items-center gap-2 px-3 py-3  font-medium transition-all rounded-full
               ${
                 isActive(item.path)
                   ? "bg-[#0496ff] text-white shadow-md"
                   : "text-gray-700 hover:bg-[#0496FF1A] hover:text-[#0496ff]"
               }
+              ${
+                collapsed ? "justify-center gap-0" : "gap-2"
+              }
             `}
           >
-            <img src={item.icon} alt="" className="w-6 h-6" />
+            {item.icon}
             {!collapsed && <span>{item.label}</span>}
           </Link>
         ))}
         <button
           onClick={onLogout}
           className="
-            group flex items-center gap-4 rounded-lg px-3 py-3 sidebar text-sm font-medium w-full
-            hover:text-white hover:bg-[#0496ff] transition-all
+            group flex items-center gap-4 rounded-full px-3 py-3 sidebar text-sm font-medium w-full
+            text-gray-700 hover:bg-[#0496FF1A] hover:text-[#0496ff] transition-all
           "
         >
-          <img src={logoutIcon} alt="Logout" className="w-6 h-6" />
+          <SvgLogout className="w-6 h-6" />
           {!collapsed && <span>Logout</span>}
         </button>
       </nav>

@@ -1,0 +1,19 @@
+import * as React from "react";
+import type { SVGProps } from "react";
+const SvgLessThan = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={6}
+    height={10}
+    fill="none"
+    {...props}
+  >
+    <path
+      fill="#081021"
+      fillRule="evenodd"
+      d="M.293 9.707a1 1 0 0 1 0-1.414L3.586 5 .293 1.707A1 1 0 0 1 1.707.293l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414 0"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+export default SvgLessThan;

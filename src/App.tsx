@@ -10,12 +10,12 @@ import EmployeeAttendance from "./pages/employee/EmployeeAttendance";
 // Admin pages (placeholders for now)
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AllAttendance from "./pages/admin/AllAttendance";
-import AddEmployee from "./pages/admin/AddEmployee";
 import EmployeeDetails from "./pages/admin/EmployeeDetails";
 import type { ReactElement } from "react";
 
 // Layouts
 import Layout from "./components/layout/Layout";
+import EmployeeManage from "./pages/admin/EmployeeManage";
 
 const ProtectedRoute = ({ children, allowedRoles }: { children: ReactElement; allowedRoles: string[] }) => {
   const { currentUser, loading } = useAuth();
@@ -62,7 +62,7 @@ function App() {
           {/* Admin Routes */}
           <Route path="admin" element={<AdminDashboard />} />
           <Route path="admin/all-attendance" element={<AllAttendance />} />
-          <Route path="admin/add-employee" element={<AddEmployee />} />
+          <Route path="admin/add-employee" element={<EmployeeManage />} />
           <Route path="admin/employee/:id" element={<EmployeeDetails />} />
         </Route>
 
