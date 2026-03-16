@@ -39,7 +39,7 @@ const Unauthorized = () => (
     <h1 className="text-4xl font-bold text-red-600">Access Denied</h1>
   </div>
 );
-
+// routes
 function App() {
   return (
     <BrowserRouter>
