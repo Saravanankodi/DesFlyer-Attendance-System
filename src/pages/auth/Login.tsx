@@ -46,69 +46,49 @@ const Login = () => {
   
 
   return (
-    <section className="w-full h-screen overflow-hidden md:flex items-center justify-center m-auto">
-        <aside className="hidden md:block md:w-3/5 h-full m-auto">
-            <img src={bgImg} alt="" className='h-auto w-full ' />
-        </aside>
-        <main className="md:w-2/5 h-full flex flex-col items-center justify-center">
-            <header className="w-4/5 h-fit m-auto">
-                <img src={logo} alt="" className='block w-2/5 h-auto max-h-75 max-w-75 m-auto ' />
-            </header>
-            <section className="w-full h-auto p-5">
-                <header className="w-full h-auto p-2">
-                <h2 className="heading text-3xl my-3 text-center">
-                    ATTENDANCE LOGIN
-                </h2>
-                <p className="text text-[18px]">
-                    Login with your <span className="text-[#0496ff] font-semibold">employee</span> or{" "}
-                    <span className="text-[#0496ff] font-semibold">admin</span> credential.
-                </p>
-                </header>
+    <section className="w-full h-screen relative overflow-hidden m-auto bg-[#050A24] ">
+      <div className="absolute top-0 -right-60 z-10 w-95 h-95 rounded-full bg-[#2D55FB] blur-[550px]  "></div>
+      <div className="absolute -bottom-95 -left-50 z-10 w-95 h-95 rounded-full bg-[#2D55FB] blur-[550px]  "></div>
+      <main className="w-full max-w-140 h-fit absolute top-1/2 left-1/2 -translate-1/2  px-8 py-6 md:px-12 md:py-8  xl:px-18 xl:py-12 bg-white rounded-[20px] ">
+          <header className="w-full h-auto p-2">
+            <h2 className="heading text-[28px] text-center">
+                Welcome to DesFlyer
+            </h2>
+          </header>
+          
+          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-6 items-center justify-center">
+          <Input
+              label="Email"
+              type="email"
+              placeholder="Enter email..."
+              className="focus:border-[3px] focus:border-[#D1E9FF] placeholder:text-[#98A2B3]"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              className=" focus:border-[3px] focus:border-[#D1E9FF]  placeholder:text-[#98A2B3]"
+              placeholder="Enter password..."
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+              variant="primary"
+              type="submit"
+              disabled={loading}
+              className="w-full h-12 rounded-lg bg-[#1570EF] text-base font-medium"
+          >
+              {loading ? "Logging in..." : "Login now"}
+          </Button>
 
-                <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5 items-center justify-center">
-                <Input
-                    type="email"
-                    placeholder="Enter email..."
-                    className=" shadow-[0px_4px_4px_0px_#00000040] placeholder:text-[#A1A1A1] border-2"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <Input
-                    type={showPassword ? "text" : "password"}
-                    className=" shadow-[0px_4px_4px_0px_#00000040] placeholder:text-[#A1A1A1] border-2"
-                    placeholder="Enter password..."
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button
-                    type="button"
-                    className="text-sm text-blue-600 self-end"
-                    onClick={() => setShowPassword(p => !p)}
-                >
-                    {showPassword ? "Hide password" : "Show password"}
-                </button>
-
-                <Button
-                    variant="primary"
-                    type="submit"
-                    disabled={loading}
-                    className="w-full h-12 rounded-full text-lg font-medium"
-                >
-                    {loading ? "Logging in..." : "LOGIN"}
-                </Button>
-
-                {error && (
-                    <p className="text-center text-red-600 font-medium bg-red-50 py-3 rounded-lg">
-                    {error}
-                    </p>
-                )}
-                </form>
-
-                <p className="text-center text-sm text-gray-500 mt-8">
-                Contact administrator for access issues
-                </p>
-            </section>
-        </main>
+          {error && (
+              <p className="text-center text-red-600 font-medium bg-red-50 py-3 rounded-lg">
+              {error}
+              </p>
+          )}
+          </form>
+      </main>
     </section>
   );
 };
