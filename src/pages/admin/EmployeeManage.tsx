@@ -28,7 +28,7 @@ const EmployeeManage = () => {
       </div>
 
       {/* UI Section */}
-      <div className="w-full mt-10">
+      <div className="w-full mt-2">
 
         {activeTab === "add" && (
           <AddEmployee/>
