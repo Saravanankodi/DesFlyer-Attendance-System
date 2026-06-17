@@ -4,14 +4,13 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Button from '../../components/base/Button'
 import { Input } from "../../components/base/Input";
-import bgImg from '../../assets/bg.png'
-import logo from '../../assets/logo.png'
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword,] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
