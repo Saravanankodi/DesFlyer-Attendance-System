@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Button from '../../components/base/Button'
 import { Input } from "../../components/base/Input";
-
+import logo from "../../assets/desflyer.png"
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,6 +46,9 @@ const Login = () => {
 
   return (
     <section className="w-full h-screen relative overflow-hidden m-auto bg-[#050A24] ">
+      <div className=" absolute top-5 left-5 w-fit h-fit bg-white rounded-lg">
+        <img src={logo} className="w-fit" alt="desflyer-logo" />
+      </div>
       <div className="absolute top-0 -right-60 z-10 w-95 h-95 rounded-full bg-[#2D55FB] blur-[550px]  "></div>
       <div className="absolute -bottom-95 -left-50 z-10 w-95 h-95 rounded-full bg-[#2D55FB] blur-[550px]  "></div>
       <main className="w-full max-w-140 h-fit absolute top-1/2 left-1/2 -translate-1/2  px-8 py-6 md:px-12 md:py-8  xl:px-18 xl:py-12 bg-white rounded-[20px] ">
