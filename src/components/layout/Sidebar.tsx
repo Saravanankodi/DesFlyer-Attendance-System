@@ -55,7 +55,7 @@ export function Sidebar({ onLogout }: { onLogout: () => void }) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 mt-6 px-3 space-y-1">
+      <nav className="flex-1 mt-6 px-3 space-y-3">
         {navItems.map((item) => (
           <Link
             key={item.label}

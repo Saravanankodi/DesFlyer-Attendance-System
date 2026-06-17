@@ -11,12 +11,12 @@ interface inputProps {
     className?:string;
     onChange?:(e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-const inputStyle = 'w-full h-15  text text-lg rounded-lg bg-[#ECEBEA] border-[#A1A1A1] outline-none'
+const inputStyle = 'w-full h-10  text text-xs rounded-lg bg-[#ECEBEA] border-[#A1A1A1] outline-none'
 export const Input:React.FC<inputProps> = ({label,name,value,type,placeholder,className,Icon,onChange}) =>{
     return(
         <>
-        <div className="w-full h-fit">
-            <label htmlFor={name} className="text text-xl">
+        <div className="w-full h-fit flex flex-col gap-1">
+            <label htmlFor={name} className="text text-sm">
                 {label}
             </label>
             <div className="relative w-full">
