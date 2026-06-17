@@ -13,7 +13,7 @@ import AllAttendance from "./pages/admin/AllAttendance";
 import EmployeeDetails from "./pages/admin/EmployeeDetails";
 import type { ReactElement } from "react";
 
-// Layoutss
+// Layouts
 import Layout from "./components/layout/Layout";
 import EmployeeManage from "./pages/admin/EmployeeManage";
 
