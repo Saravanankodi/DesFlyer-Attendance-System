@@ -54,11 +54,23 @@ const handleToggle = async () => {
     if (isCheckedIn) {
       await checkOut(currentUser.uid);
       setMessage("Checked out successfully!");
+
+      // Optional: refresh data
+      await loadData();
+
+      // Redirect to report page
+      window.location.href = "https://report.desflyer.in/";
+      // or: window.location.replace("https://report.desflyer.in/");
     } else {
-      await checkIn(currentUser.uid, currentUser.employeeId, currentUser.name);
+      await checkIn(
+        currentUser.uid,
+        currentUser.employeeId,
+        currentUser.name
+      );
       setMessage("Checked in successfully!");
+
+      await loadData();
     }
-    await loadData(); // now updates isCheckedIn immediately
   } catch (error: any) {
     console.error("Toggle error:", error);
     setMessage(error.message || "Operation failed. Please try again.");
